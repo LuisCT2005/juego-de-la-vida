@@ -13,7 +13,10 @@ let boton; // Variable para el botón
 let tamaño;
 
 function setup() {
-  let canvas = createCanvas(1500, 800);
+  let canvasWidth = min(windowWidth - 100, 1500); // Máximo 1500px, pero ajustado al ancho de la ventana
+  let canvasHeight = min(windowHeight - 150, 800); // Máximo 800px, pero ajustado al alto de la ventana
+
+  let canvas = createCanvas(canvasWidth, canvasHeight);
   canvas.position(50, 50); // Separar el canvas 50px de los bordes
   crearCasillas();
   frameRate(8);
@@ -21,11 +24,11 @@ function setup() {
 
   // Crear el botón
   botonEmpezar = createButton('Empezar');
-  botonEmpezar.position(100, 870); // Ajustar posición del botón
+  botonEmpezar.position(50, height + 60); // Ajustar posición del botón dinámicamente
   botonEmpezar.mousePressed(toggleAnimacion); // Asignar evento al botón
 
   botonReiniciar = createButton('Reiniciar');
-  botonReiniciar.position(200, 870); // Ajustar posición del botón
+  botonReiniciar.position(150, height + 60); // Ajustar posición del botón dinámicamente
   botonReiniciar.mousePressed(reiniciar); // Asignar evento al botón
 }
 
