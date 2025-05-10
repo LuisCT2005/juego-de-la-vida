@@ -18,9 +18,15 @@ function setup() {
   frameRate(8);
   tamaño = width / rows;
   // Crear el botón
-  boton = createButton('Empezar');
-  boton.position(10, 620); // Posición del botón
-  boton.mousePressed(toggleAnimacion); // Asignar evento al botón
+  botonEmpezar = createButton('Empezar');
+  botonEmpezar.position(100, 620); // Posición del botón
+  botonEmpezar.mousePressed(toggleAnimacion); // Asignar evento al botón
+
+
+
+  botonReiniciar = createButton('Reiniciar');
+  botonReiniciar.position(200, 620); // Posición del botón
+  botonReiniciar.mousePressed(reiniciar); // Asignar evento al botón
 }
 
 function draw() {
@@ -89,7 +95,7 @@ function controlarCasillas() {
 // Función para alternar la animación
 function toggleAnimacion() {
   animacionActiva = !animacionActiva; // Cambiar el estado de la animación
-  boton.html(animacionActiva ? 'Pausar' : 'Reanudar'); // Cambiar el texto del botón
+  botonEmpezar.html(animacionActiva ? 'Pausar' : 'Reanudar'); // Cambiar el texto del botón
 }
 
 
@@ -104,4 +110,10 @@ function mousePressed(){
     casillas[row][col] = muerto;
   }
   
+}
+
+
+function reiniciar(){
+  crearCasillas();
+  toggleAnimacion();
 }
