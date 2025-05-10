@@ -1,5 +1,5 @@
-let cols = 30;
-let rows = 30;
+let cols = 100;
+let rows = 100;
 
 let casillas = [];
 let casillasAnterior = [];
@@ -13,19 +13,19 @@ let boton; // Variable para el botón
 let tamaño;
 
 function setup() {
-  createCanvas(600, 600);
+  let canvas = createCanvas(1500, 800);
+  canvas.position(50, 50); // Separar el canvas 50px de los bordes
   crearCasillas();
   frameRate(8);
   tamaño = width / rows;
+
   // Crear el botón
   botonEmpezar = createButton('Empezar');
-  botonEmpezar.position(100, 620); // Posición del botón
+  botonEmpezar.position(100, 870); // Ajustar posición del botón
   botonEmpezar.mousePressed(toggleAnimacion); // Asignar evento al botón
 
-
-
   botonReiniciar = createButton('Reiniciar');
-  botonReiniciar.position(200, 620); // Posición del botón
+  botonReiniciar.position(200, 870); // Ajustar posición del botón
   botonReiniciar.mousePressed(reiniciar); // Asignar evento al botón
 }
 
@@ -46,11 +46,24 @@ function crearCasillas() {
 }
 
 function dibujarCasillas() {
+  noStroke(); // Eliminar bordes de las celdas
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-
-      fill(casillas[i][j]);
-      square(i * tamaño, j * tamaño, tamaño);
+      if (i === 0 || i === rows - 1 || j === 0 || j === cols - 1) {
+        // Dibujar celdas exteriores en blanco
+        fill(200);
+        noStroke();
+      } else {
+        // Dibujar celdas normales
+        stroke(0);
+        strokeWeight(1);
+        if (casillas[i][j] === vivo){
+          fill(0);
+        }else {
+          fill(200);
+        }
+      }
+      square(j * tamaño, i * tamaño, tamaño);
     }
   }
 }
@@ -98,22 +111,21 @@ function toggleAnimacion() {
   botonEmpezar.html(animacionActiva ? 'Pausar' : 'Reanudar'); // Cambiar el texto del botón
 }
 
+function mousePressed() {
+  let row = floor(mouseY / tamaño);
+  let col = floor(mouseX / tamaño);
 
-function mousePressed(){
-
-  let row = floor(mouseX / tamaño);
-  let col = floor(mouseY / tamaño);
-
-  if (casillas[row][col] == muerto){
-    casillas[row][col] = vivo;
-  }else{
-    casillas[row][col] = muerto;
+  if (row >= 0 && row < rows && col >= 0 && col < cols) {
+    if (casillas[row][col] == muerto) {
+      casillas[row][col] = vivo;
+    } else {
+      casillas[row][col] = muerto;
+    }
   }
-  
 }
 
-
-function reiniciar(){
+function reiniciar() {
   crearCasillas();
-  toggleAnimacion();
+  animacionActiva = false; // Asegurarse de que la animación esté pausada
+  botonEmpezar.html('Empezar'); // Restablecer el texto del botón
 }
