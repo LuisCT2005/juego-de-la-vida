@@ -7,29 +7,28 @@ let casillasAnterior = [];
 let vivo = 0;
 let muerto = 255;
 
-let animacionActiva = false; // Variable para controlar la animación
-let boton; // Variable para el botón
+let animacionActiva = false;
+let boton;
 
 let tamaño;
 
 function setup() {
-  let canvasWidth = min(windowWidth - 100, 1500); // Máximo 1500px, pero ajustado al ancho de la ventana
-  let canvasHeight = min(windowHeight - 150, 800); // Máximo 800px, pero ajustado al alto de la ventana
+  let canvasWidth = min(windowWidth - 100, 1200); 
+  let canvasHeight = min(windowHeight - 150, 800); 
 
   let canvas = createCanvas(canvasWidth, canvasHeight);
-  canvas.position(50, 50); // Separar el canvas 50px de los bordes
+  canvas.position(10,10); 
   crearCasillas();
   frameRate(8);
   tamaño = width / rows;
 
-  // Crear el botón
   botonEmpezar = createButton('Empezar');
-  botonEmpezar.position(50, height + 60); // Ajustar posición del botón dinámicamente
-  botonEmpezar.mousePressed(toggleAnimacion); // Asignar evento al botón
+  botonEmpezar.position(50, height + 10); 
+  botonEmpezar.mousePressed(toggleAnimacion); 
 
   botonReiniciar = createButton('Reiniciar');
-  botonReiniciar.position(150, height + 60); // Ajustar posición del botón dinámicamente
-  botonReiniciar.mousePressed(reiniciar); // Asignar evento al botón
+  botonReiniciar.position(150, height + 10); 
+  botonReiniciar.mousePressed(reiniciar); 
 }
 
 function draw() {
@@ -49,15 +48,13 @@ function crearCasillas() {
 }
 
 function dibujarCasillas() {
-  noStroke(); // Eliminar bordes de las celdas
+  noStroke();
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       if (i === 0 || i === rows - 1 || j === 0 || j === cols - 1) {
-        // Dibujar celdas exteriores en blanco
         fill(200);
         noStroke();
       } else {
-        // Dibujar celdas normales
         stroke(0);
         strokeWeight(1);
         if (casillas[i][j] === vivo){
@@ -108,10 +105,9 @@ function controlarCasillas() {
   }
 }
 
-// Función para alternar la animación
 function toggleAnimacion() {
-  animacionActiva = !animacionActiva; // Cambiar el estado de la animación
-  botonEmpezar.html(animacionActiva ? 'Pausar' : 'Reanudar'); // Cambiar el texto del botón
+  animacionActiva = !animacionActiva;
+  botonEmpezar.html(animacionActiva ? 'Pausar' : 'Reanudar');
 }
 
 function mousePressed() {
@@ -129,6 +125,6 @@ function mousePressed() {
 
 function reiniciar() {
   crearCasillas();
-  animacionActiva = false; // Asegurarse de que la animación esté pausada
-  botonEmpezar.html('Empezar'); // Restablecer el texto del botón
+  animacionActiva = false;
+  botonEmpezar.html('Empezar');
 }
